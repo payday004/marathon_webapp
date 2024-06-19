@@ -7,11 +7,24 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
-    .model({
-      content: a.string(),
-    })
-    .authorization((allow) => [allow.publicApiKey()]),
+
+  Race: a.model({
+    raceDay: a.date().required(),
+    runs: a.hasMany('Run', 'raceID')
+  }),
+
+
+  Run: a.model({
+    raceID: a.id(),
+    runDate: a.date().required(),
+    plannedDistance: a.float(),
+    actualDistance: a.float(),
+    pace: a.boolean(),
+    race: a.belongsTo('Race', 'raceID')
+
+  }),
+
+
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -19,11 +32,7 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "apiKey",
-    // API Key is used for a.allow.public() rules
-    apiKeyAuthorizationMode: {
-      expiresInDays: 30,
-    },
+    defaultAuthorizationMode: 'userPool',
   },
 });
 
