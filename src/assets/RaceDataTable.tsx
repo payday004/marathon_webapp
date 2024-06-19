@@ -1,4 +1,3 @@
-import { Button } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 
 import type { Schema } from "../../amplify/data/resource";
