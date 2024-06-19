@@ -30,7 +30,7 @@ function RaceDataTable() {
     },
   });
 
-  return <Button onClick={() => console.log({ races })}>Click me</Button>;
+  return <Button onClick={() => console.log({ races, isLoading, isSuccess, isErrorQuery })}>Click me</Button>;
 }
 
 export default RaceDataTable;
