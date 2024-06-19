@@ -9,6 +9,7 @@ specifies that any user authenticated via an API key can "create", "read",
 const schema = a.schema({
 
   Race: a.model({
+    raceName: a.string().required(),
     raceDay: a.date().required(),
     runs: a.hasMany('Run', 'raceID')
   }).authorization(allow => [allow.publicApiKey()]),
@@ -19,7 +20,7 @@ const schema = a.schema({
     runDate: a.date().required(),
     plannedDistance: a.float(),
     actualDistance: a.float(),
-    pace: a.boolean(),
+    pace: a.float(),
     race: a.belongsTo('Race', 'raceID')
   }).authorization(allow => [allow.publicApiKey()]),
 
